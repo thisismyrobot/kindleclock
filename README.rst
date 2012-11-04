@@ -3,6 +3,8 @@ Kindleclock
 
 Having a go at using my kindle as a clock/weather dashboard
 
+.. image:: https://raw.github.com/thisismyrobot/kindleclock/master/Kindle.jpg
+
 Inspiration
 -----------
 
