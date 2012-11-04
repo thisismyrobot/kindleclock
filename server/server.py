@@ -3,7 +3,6 @@ import BaseHTTPServer
 
 # Settings
 PORT_NUMBER = 8000
-PAGE = "dashboard.html"
 
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -18,7 +17,10 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
-        with open(PAGE) as f:
+        filename = s.path[1:]
+        if filename == "":
+            filename = "dashboard.html"
+        with open(filename) as f:
             s.wfile.write(f.read())
 
 
