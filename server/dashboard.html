@@ -37,6 +37,14 @@
                 text-align:right;
                 padding-bottom:45px;
             }
+            #agenda{
+                font-size:24px;
+                padding-left:35px;
+                vertical-align:top;
+            }
+            #agenda em{
+                color:grey;
+            }
         </style>
         <script>
             function clock()
@@ -77,6 +85,10 @@
                     %(FORECAST)s
                 </td>
             </tr>
+            <tr>
+                <td id="agenda">
+                    %(AGENDA)s
+                </td>
         </table>
     </body>
 </html>

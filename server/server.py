@@ -5,7 +5,8 @@ import sources
 # Settings
 PORT_NUMBER = 8000
 SOURCES = {"TEMPERATURE": sources.temperature,
-           "FORECAST": sources.forecast}
+           "FORECAST": sources.forecast,
+           "AGENDA": sources.agenda}
 
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -23,20 +24,21 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         filename = s.path[1:]
         if filename == "":
             filename = "dashboard.html"
-        try:
-            with open(filename) as f:
-                if filename == "dashboard.html":
-                    template =  f.read()
-                    tempdict = {}
-                    for k,func in SOURCES.items():
-                        tempdict[k] = func()
-                    statichtml = template % tempdict
-                    s.wfile.write(statichtml)
-                else:
-                    s.wfile.write(f.read())
-        except:
-            pass
+        if filename == "favicon.ico":
+            return
+        with open(filename) as f:
+            if filename == "dashboard.html":
+                template =  f.read()
+                tempdict = {}
+                for k,func in SOURCES.items():
+                    tempdict[k] = func()
+                statichtml = template % tempdict
+                s.wfile.write(statichtml)
+            else:
+                s.wfile.write(f.read())
 
+    def log_message(self, format, *args):
+        return
 
 if __name__ == '__main__':
     httpd = BaseHTTPServer.HTTPServer(("", PORT_NUMBER), MyHandler)
