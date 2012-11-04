@@ -1,8 +1,24 @@
 import BaseHTTPServer
+import ConfigParser
+import io
+import string
+import urllib
 
 
 # Settings
 PORT_NUMBER = 8000
+
+
+def temperature():
+    try:
+        URL = "http://www.bom.gov.au/fwo/IDT60901/IDT60901.94970.axf"
+        data = urllib.urlopen(URL).read()
+        for line in data.split("\n"):
+            if line.startswith("0,94970"):
+                return line.split(",")[7]
+    except:
+        pass
+    return "???"
 
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -20,8 +36,16 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         filename = s.path[1:]
         if filename == "":
             filename = "dashboard.html"
-        with open(filename) as f:
-            s.wfile.write(f.read())
+        try:
+            with open(filename) as f:
+                if filename == "dashboard.html":
+                    template =  f.read()
+                    statichtml = template % {"TEMPERATURE":temperature()}
+                    s.wfile.write(statichtml)
+                else:
+                    s.wfile.write(f.read())
+        except:
+            pass
 
 
 if __name__ == '__main__':
