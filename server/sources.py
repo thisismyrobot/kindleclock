@@ -50,7 +50,9 @@ def forecast():
             if line.startswith("094029"):
                 if (line.split("#")[6] != ""):
                     temp = "Min: " + line.split("#")[6] + ", "
-                temp += "Max: " + line.split("#")[7]
+                if (line.split("#")[7] != ""):
+                    temp += "Max: " + line.split("#")[7]
+        temp += "<br />"
         for line in data.split("\n"):
             if line.startswith("094029"):
                 return temp + "<br />" + line.split("#")[22]
