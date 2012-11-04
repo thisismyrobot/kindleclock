@@ -42,3 +42,36 @@ That's it, now you can use the Experimental browser, pointing it at the clock
 web page and you're done.
 
 Oh, and if you're feeling game, check out "~help" ;)
+
+The Server
+----------
+
+The "server" is just a bit of Python.
+
+Data
+~~~~
+
+There are two different types of data that I want to display, low- and
+high-refresh.
+
+Low-refresh:
+ * Today's weather forecast
+ * Current temperature
+ * Number of emails in inbox
+ * Agenda
+
+High-refresh:
+ * Time/date
+
+The idea would be to statically generate the low-refresh data on page load. This
+could be done once per hour via JS/Meta refresh.
+
+The high-refresh data would be done via JS.
+
+The positives of this breakdown are simplicity. A single template with a single
+block of back-end Python. No need for ajax end-points for async updates etc. JS
+can still handle the time of course.
+
+The negatives are that I cannot add high-refresh data without having to change
+the design a fair bit, adding ajax endpoints in my Python. Will deal with that
+if I have the need.
