@@ -45,6 +45,12 @@
             #agenda em{
                 color:grey;
             }
+            #unreadgmail{
+                text-align:right;
+                font-size:24px;
+                padding-right:35px;
+                vertical-align:top;
+            }
         </style>
         <script>
             function clock()
@@ -89,6 +95,10 @@
                 <td id="agenda">
                     %(AGENDA)s
                 </td>
+                <td id="unreadgmail">
+                    %(UNREADGMAIL)s
+                </td>
+            </tr>
         </table>
     </body>
 </html>

@@ -1,8 +1,29 @@
+import base64
 import datetime
 import re
 import rfc3339
 import urllib
+import urllib2
 import xml.dom.minidom
+
+
+def unreadgmail():
+    try:
+        auth = open("gmailauth.txt").read()
+        URL = 'https://gmail.google.com/gmail/feed/atom'
+        req = urllib2.Request(URL)
+        req.add_header('Authorization', 'Basic %s' % auth)
+        dom = xml.dom.minidom.parse(urllib2.urlopen(req))
+        count = int(dom.getElementsByTagName("fullcount")[0].lastChild.toxml())
+        if count == 0:
+            return "No unread emails"
+        elif count == 1:
+            return "1 new email"
+        else:
+            return "{0} new emails".format(count)
+    except:
+        pass
+    return "???"
 
 
 def agenda():
