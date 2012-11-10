@@ -30,7 +30,7 @@ def agenda():
     try:
         results = ""
         URL = open("calxmlurl.txt").read()
-        now = datetime.datetime.now()
+        now = datetime.datetime.today()
         start = rfc3339.rfc3339(now.replace(hour=0, minute=0, second=0))
         end = rfc3339.rfc3339(now.replace(hour=23, minute=59, second=59))
         URL += "&" + urllib.urlencode({"start-min": start})
