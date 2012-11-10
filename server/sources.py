@@ -31,10 +31,8 @@ def agenda():
         results = ""
         URL = open("calxmlurl.txt").read()
         now = datetime.datetime.now()
-        start = rfc3339.rfc3339(now.replace(hour=0, minute=0, second=0),
-                                use_system_timezone=False)
-        end = rfc3339.rfc3339(now.replace(hour=23, minute=59, second=59),
-                              use_system_timezone=False)
+        start = rfc3339.rfc3339(now.replace(hour=0, minute=0, second=0))
+        end = rfc3339.rfc3339(now.replace(hour=23, minute=59, second=59))
         URL += "&" + urllib.urlencode({"start-min": start})
         URL += "&" + urllib.urlencode({"start-max": end})
         dom = xml.dom.minidom.parse(urllib.urlopen(URL))
@@ -76,10 +74,11 @@ def forecast():
                     temp = "Min: " + line.split("#")[6] + ", "
                 if (line.split("#")[7] != ""):
                     temp += "Max: " + line.split("#")[7]
-        temp += "<br />"
+        if temp != "":
+            temp += "<br />"
         for line in data.split("\n"):
             if line.startswith("094029"):
-                return temp + "<br />" + line.split("#")[22]
+                return temp + line.split("#")[22]
     except:
         pass
     return "???"
