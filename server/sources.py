@@ -1,7 +1,5 @@
 import base64
-import datetime
 import re
-import rfc3339
 import urllib
 import urllib2
 import xml.dom.minidom
@@ -27,36 +25,39 @@ def unreadgmail():
 
 
 def agenda():
+    """ Returns events from a google calendar URL. For instance you could use a
+        private one like:
+        
+        https://www.google.com/calendar/feeds/[email address]/private-[stuff]/basic?[options]
+        
+        The url is stored in calxmlurl.txt in the same folder as sources.py.
+
+        The options are whatever suits, I use:
+
+        orderby=starttime&sortorder=ascending&singleevents=true&futureevents=true&max-results=5
+
+        See the following for hints on options:
+         * https://developers.google.com/google-apps/calendar/v2/reference#Parameters
+         * https://developers.google.com/gdata/docs/2.0/reference#Queries
+    """
+
     try:
         results = ""
         URL = open("calxmlurl.txt").read()
-        now = datetime.datetime.today()
-        start = rfc3339.rfc3339(now.replace(hour=0, minute=0, second=0))
-        end = rfc3339.rfc3339(now.replace(hour=23, minute=59, second=59))
-        URL += "&" + urllib.urlencode({"start-min": start})
-        URL += "&" + urllib.urlencode({"start-max": end})
         dom = xml.dom.minidom.parse(urllib.urlopen(URL))
         entries = dom.getElementsByTagName("entry")
-        if len(entries) == 0:
-            results = "No events today!"
-        else:
-            added = 0
-            for e in dom.getElementsByTagName("entry"):
-                added += 1
-                if added > 5:
-                    results += "..."
-                    break
-                event = e.getElementsByTagName("title")[0].lastChild.toxml()\
-                            .encode('ascii','ignore')
-                times = e.getElementsByTagName("summary")[0].lastChild.toxml()\
-                            .encode('ascii','ignore').split("\n")[0]
-                times = re.findall(r'.*?([0-9]{2}:[0-9]{2}).*?', times)
-                displaytime = "All day"
-                if len(times) == 1:
-                    displaytime = times[0]
-                elif len(times) == 2:
-                    displaytime = times[0] + "-" + times[1]
-                results += event + " - <em>" + displaytime + "</em> " + "<br />"
+        for e in dom.getElementsByTagName("entry"):
+            event = e.getElementsByTagName("title")[0].lastChild.toxml()\
+                        .encode('ascii','ignore')
+            times = e.getElementsByTagName("summary")[0].lastChild.toxml()\
+                        .encode('ascii','ignore').split("\n")[0]
+            times = re.findall(r'.*?([0-9]{2}:[0-9]{2}).*?', times)
+            displaytime = "All day"
+            if len(times) == 1:
+                displaytime = times[0]
+            elif len(times) == 2:
+                displaytime = times[0] + "-" + times[1]
+            results += event + " - <em>" + displaytime + "</em> " + "<br />"
         return results
     except:
         pass
