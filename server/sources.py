@@ -1,5 +1,7 @@
 import base64
+import cgi
 import re
+import tools
 import urllib
 import urllib2
 import xml.dom.minidom
@@ -49,6 +51,8 @@ def agenda():
         for e in dom.getElementsByTagName("entry"):
             event = e.getElementsByTagName("title")[0].lastChild.toxml()\
                         .encode('ascii','ignore')
+            # The events are well-mangled html
+            event = cgi.escape(tools.unescape(tools.unescape(event)).encode('ascii'))
             times = e.getElementsByTagName("summary")[0].lastChild.toxml()\
                         .encode('ascii','ignore').split("\n")[0]
             times = re.findall(r'.*?([0-9]{2}:[0-9]{2}).*?', times)
