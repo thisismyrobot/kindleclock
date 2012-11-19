@@ -1,6 +1,7 @@
 import base64
 import cgi
 import re
+import time
 import tools
 import urllib
 import urllib2
@@ -53,15 +54,17 @@ def agenda():
                         .encode('ascii','ignore')
             # The events are well-mangled html
             event = cgi.escape(tools.unescape(tools.unescape(event)).encode('ascii'))
-            times = e.getElementsByTagName("summary")[0].lastChild.toxml()\
+            summary = e.getElementsByTagName("summary")[0].lastChild.toxml()\
                         .encode('ascii','ignore').split("\n")[0]
-            times = re.findall(r'.*?([0-9]{2}:[0-9]{2}).*?', times)
+            date = re.findall(r'When:.*?[ ]([0-9]{1,2}[ ].*?[0-9]{4}).*?', summary)[0]
+            date = time.strptime(date, "%d %b %Y")
+            date = "%i%s" % (date.tm_mday, tools.ordinal(date.tm_mday))
+            times = re.findall(r'.*?([0-9]{2}:[0-9]{2}).*?', summary)
             displaytime = "All day"
-            if len(times) == 1:
+            if len(times) > 0:
                 displaytime = times[0]
-            elif len(times) == 2:
-                displaytime = times[0] + "-" + times[1]
-            results += event + " - <em>" + displaytime + "</em> " + "<br />"
+            results += "%s - <span class=\"dt\">%s, %s</span><br />" %\
+                       (event, date, displaytime)
         return results
     except:
         pass
