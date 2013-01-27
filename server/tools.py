@@ -1,4 +1,5 @@
 import htmlentitydefs
+import mimetypes
 import re
 
 def unescape(text):
@@ -33,3 +34,15 @@ def ordinal(day):
     else:
         suffix = ["st", "nd", "rd"][day % 10 - 1]
     return suffix
+
+
+def _filename(s):
+    return s.path[1:]
+
+
+def _content_type(filename):
+    ct, _ = mimetypes.guess_type(filename)
+    if ct is None:
+        ct = "text/html"
+    return ct
+

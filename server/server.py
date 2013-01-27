@@ -1,5 +1,6 @@
 import BaseHTTPServer
 import sources
+import tools
 
 
 # Settings
@@ -15,18 +16,22 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """
     def do_HEAD(s):
         s.send_response(200)
-        s.send_header("Content-type", "text/html")
+        s.send_header("Content-type", tools._content_type(tools._filename(s)))
         s.end_headers()
 
     def do_GET(s):
+        filename = tools._filename(s)
+
+        # Fire off some headers with the content type
         s.send_response(200)
-        s.send_header("Content-type", "text/html")
+        s.send_header("Content-type", tools._content_type(filename))
         s.end_headers()
-        filename = s.path[1:]
+
         if filename == "":
             filename = "dashboard.html"
         if filename == "favicon.ico":
             return
+
         with open(filename) as f:
             if filename == "dashboard.html":
                 template =  f.read()

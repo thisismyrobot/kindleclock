@@ -1,0 +1,46 @@
+html,
+body{
+    padding:0;
+    margin:0;
+    font-family:Sans-serif;
+    font-weight:300;
+}
+table{
+    border:0;
+    padding:0;
+    margin:0;
+    width:800px;
+}
+#clock{
+    font-size:200px;
+    padding-left:35px;
+    vertical-align:top;
+}
+#temperature{
+    font-size:50px;
+    text-align:right;
+    padding-right:35px;
+    vertical-align:top;
+    padding-top:40px;
+}
+#forecast{
+    font-size:24px;
+    padding-right:35px;
+    vertical-align:top;
+    text-align:right;
+    padding-top:10px;
+}
+#agenda{
+    font-size:24px;
+    padding-left:35px;
+    vertical-align:top;
+}
+#agenda .dt{
+    color:grey;
+}
+#unreadgmail{
+    text-align:right;
+    font-size:32px;
+    padding-right:35px;
+    vertical-align:top;
+}
