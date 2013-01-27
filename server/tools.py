@@ -37,7 +37,14 @@ def ordinal(day):
 
 
 def _filename(s):
-    return s.path[1:]
+    return s.path[1:].split('?')[0]
+
+
+def _gets(s):
+    _gets = s.path[1:].split('?')
+    if len(_gets) == 1:
+        return None
+    return _gets[1]
 
 
 def _content_type(filename):
