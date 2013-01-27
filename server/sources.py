@@ -50,19 +50,29 @@ def agenda():
         dom = xml.dom.minidom.parse(urllib.urlopen(URL))
         entries = dom.getElementsByTagName("entry")
         for e in dom.getElementsByTagName("entry"):
+            # Parse out the event title
             event = e.getElementsByTagName("title")[0].lastChild.toxml()\
                         .encode('ascii','ignore')
-            # The events are well-mangled html
-            event = cgi.escape(tools.unescape(tools.unescape(event)).encode('ascii'))
+            event = cgi.escape(
+                        tools.unescape(tools.unescape(event)).encode('ascii'))
+            if len(event) > 20:
+                event = event[:17] + '...'
+
+            # Parse out the summary, this contains the start and end date/time
             summary = e.getElementsByTagName("summary")[0].lastChild.toxml()\
                         .encode('ascii','ignore').split("\n")[0]
-            date = re.findall(r'When:.*?[ ]([0-9]{1,2}[ ].*?[0-9]{4}).*?', summary)[0]
+            date = re.findall(
+                        r'When:.*?[ ]([0-9]{1,2}[ ].*?[0-9]{4}).*?', summary)[0]
             date = time.strptime(date, "%d %b %Y")
             date = "%i%s" % (date.tm_mday, tools.ordinal(date.tm_mday))
             times = re.findall(r'.*?([0-9]{2}:[0-9]{2}).*?', summary)
+
+            # Handle "All day" events
             displaytime = "All day"
             if len(times) > 0:
                 displaytime = times[0]
+
+            # Generate some HTML
             results += "%s - <span class=\"dt\">%s, %s</span><br />" %\
                        (event, date, displaytime)
         return results
