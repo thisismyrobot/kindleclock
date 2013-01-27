@@ -4,7 +4,6 @@
         <!-- Update page (and static-gen content) every hour -->
         <meta http-equiv="refresh" content="3600">
         <link rel="stylesheet" type="text/css" href="basic.css">
-        <script src="jquery-1.8.2.min.js"></script>
         <script>
             function clock()
             {
@@ -20,14 +19,16 @@
                     m = "0" + m;
                 }
                 var ds = [h, m].join(":");
-                $("#clock").text(ds);
+                document.getElementById("clock").innerHTML = ds;
             }
 
-            $(document).ready(function(){
-                setInterval(function(){
+            window.onload = function()
+            {
+                setInterval(function()
+                {
                     clock();
                 }, 60000); clock();
-            });
+            };
         </script>
     </head>
     <body>
