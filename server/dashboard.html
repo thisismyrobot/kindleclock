@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Update page (and static-gen content) every hour -->
-        <meta http-equiv="refresh" content="3600">
+        <!-- Update page (and static-gen content) every 15 mins -->
+        <meta http-equiv="refresh" content="900">
         <link rel="stylesheet" type="text/css" href="basic.css">
         <script>
             function clock()
             {
-                var d = new Date();
-                var h = d.getHours();
-                var m = d.getMinutes();
+                var dt = new Date();
+                var h = dt.getHours();
+                var m = dt.getMinutes();
                 if(h < 10)
                 {
                     h = "0" + h;
@@ -34,7 +34,7 @@
     <body>
         <table>
             <tr>
-                <td id="clock" rowspan="2">
+                <td id="clock" rowspan="2" colspan="2">
                 </td>
                 <td id="temperature">
                     %(TEMPERATURE)s°C
@@ -46,6 +46,9 @@
                 </td>
             </tr>
             <tr>
+                <td id="date">
+                    %(DATE)s
+                </td>
                 <td id="agenda">
                     %(AGENDA)s
                 </td>

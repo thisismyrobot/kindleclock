@@ -5,10 +5,13 @@ import tools
 
 # Settings
 PORT_NUMBER = 8000
-SOURCES = {"TEMPERATURE": sources.temperature,
-           "FORECAST": sources.forecast,
-           "AGENDA": sources.agenda,
-           "UNREADGMAIL": sources.unreadgmail}
+SOURCES = {
+    "TEMPERATURE": sources.temperature,
+    "FORECAST": sources.forecast,
+    "AGENDA": sources.agenda,
+    "UNREADGMAIL": sources.unreadgmail,
+    "DATE": sources.date,
+}
 
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):

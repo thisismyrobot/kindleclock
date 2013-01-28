@@ -1,5 +1,6 @@
 import base64
 import cgi
+import datetime
 import re
 import time
 import tools
@@ -109,6 +110,14 @@ def temperature():
         for line in data.split("\n"):
             if line.startswith("0,94970"):
                 return line.split(",")[7]
+    except:
+        pass
+    return "???"
+
+
+def date():
+    try:
+        return datetime.datetime.now().day
     except:
         pass
     return "???"

@@ -30,9 +30,17 @@ table{
     text-align:right;
     padding-top:10px;
 }
+#date{
+    font-size:100px;
+    padding-left:35px;
+    vertical-align:top;
+    text-align:right;
+    color:grey;
+    line-height:80%;
+}
 #agenda{
     font-size:24px;
-    padding-left:35px;
+    padding-left:10px;
     vertical-align:top;
 }
 #agenda .dt{
