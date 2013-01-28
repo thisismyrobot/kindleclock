@@ -35,7 +35,7 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if filename == "favicon.ico":
             return
 
-        with open(filename) as f:
+        with open(filename, 'rb') as f:
             if filename == "dashboard.html":
                 template =  f.read()
                 tempdict = {}

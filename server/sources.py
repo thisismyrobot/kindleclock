@@ -17,15 +17,15 @@ def unreadgmail():
         req.add_header('Authorization', 'Basic %s' % auth)
         dom = xml.dom.minidom.parse(urllib2.urlopen(req))
         count = int(dom.getElementsByTagName("fullcount")[0].lastChild.toxml())
-        if count == 0:
-            return "No unread emails"
-        elif count == 1:
-            return "1 new email"
+        cls = 'nounread'
+        if count > 0:
+            cls = 'unread'
         else:
-            return "{0} new emails".format(count)
+            count = ''
+        return '{0}<img src="logo_emails.png" class="{1}"/>'.format(count, cls)
     except:
         pass
-    return "???"
+    return '???'
 
 
 def agenda():
