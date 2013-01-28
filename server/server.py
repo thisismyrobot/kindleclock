@@ -10,7 +10,6 @@ SOURCES = {
     "FORECAST": sources.forecast,
     "AGENDA": sources.agenda,
     "UNREADGMAIL": sources.unreadgmail,
-    "DATE": sources.date,
 }
 
 

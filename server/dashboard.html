@@ -5,11 +5,16 @@
         <meta http-equiv="refresh" content="900">
         <link rel="stylesheet" type="text/css" href="basic.css">
         <script>
+            var months = ["January", "February", "March", "April", "May",
+                          "June", "July", "August", "September", "October",
+                          "November", "December"];
             function clock()
             {
                 var dt = new Date();
                 var h = dt.getHours();
                 var m = dt.getMinutes();
+                var d = dt.getDate();
+                var mnth = months[dt.getMonth()]
                 if(h < 10)
                 {
                     h = "0" + h;
@@ -20,6 +25,8 @@
                 }
                 var ds = [h, m].join(":");
                 document.getElementById("clock").innerHTML = ds;
+                dmth = d + "<span class=\"month\">" + mnth + "</span>";
+                document.getElementById("date").innerHTML = dmth;
             }
 
             window.onload = function()
@@ -47,7 +54,6 @@
             </tr>
             <tr>
                 <td id="date">
-                    %(DATE)s
                 </td>
                 <td id="agenda">
                     %(AGENDA)s
