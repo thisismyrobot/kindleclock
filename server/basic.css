@@ -56,11 +56,11 @@ table{
     font-size:40px;
     padding-right:35px;
     vertical-align:top;
-    line-height:95%;
 }
 #unreadgmail img{
     margin-left:10px;
-    height:34px;
+    height:30px;
+    vertical-align:center;
 }
 #unreadgmail img.nounread{
     -webkit-opacity:0.5;
