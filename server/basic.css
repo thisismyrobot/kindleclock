@@ -34,9 +34,14 @@ table{
     font-size:100px;
     padding-left:35px;
     vertical-align:top;
-    text-align:right;
+    text-align:center;
     color:grey;
     line-height:80%;
+}
+#date .month{
+    font-size:24px;
+    display:block;
+    text-align:center;
 }
 #agenda{
     font-size:24px;

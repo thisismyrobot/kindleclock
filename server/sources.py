@@ -117,7 +117,10 @@ def temperature():
 
 def date():
     try:
-        return datetime.datetime.now().day
+        now = datetime.datetime.now()
+        date = now.day
+        month = datetime.datetime.strftime(now, '%B')
+        return '{0}<span class="month">{1}</span>'.format(date, month) 
     except:
         pass
     return "???"
